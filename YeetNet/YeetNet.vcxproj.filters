@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="yeet_base">
+      <UniqueIdentifier>{c9a8e39b-4459-4117-82f1-888d3292c623}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yeet_core">
+      <UniqueIdentifier>{7a8f2187-c999-483b-8171-6ccab54e4607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yeetnet">
+      <UniqueIdentifier>{d3ca76f4-90f2-4b71-88dd-a82d11f237a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yeetnet\core">
+      <UniqueIdentifier>{81099dfd-1b90-4ef3-aab9-f6a65322eaf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yeetnet\core\message">
+      <UniqueIdentifier>{e4c743d0-2293-44ee-804d-6de22d4f0ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yeetnet\core\message\c2s">
+      <UniqueIdentifier>{01589f01-4776-4fb5-b960-f50ac5207ad1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yeetnet\core\message\s2c">
+      <UniqueIdentifier>{39be4b42-daee-4f99-bd1b-3804125b80d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="yeetnet\core\message\common">
+      <UniqueIdentifier>{ef8d950d-059c-4d37-994c-5fd79947a874}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="net_server.h">
+      <Filter>yeet_base</Filter>
+    </ClInclude>
+    <ClInclude Include="yeetnet_includes.h" />
+    <ClInclude Include="net_client.h">
+      <Filter>yeet_base</Filter>
+    </ClInclude>
+    <ClInclude Include="net_message.h">
+      <Filter>yeet_core</Filter>
+    </ClInclude>
+    <ClInclude Include="net_packet.h">
+      <Filter>yeet_core</Filter>
+    </ClInclude>
+    <ClInclude Include="net_queue.h">
+      <Filter>yeet_core</Filter>
+    </ClInclude>
+    <ClInclude Include="core_opcode.h">
+      <Filter>yeetnet</Filter>
+    </ClInclude>
+    <ClInclude Include="net_session.h">
+      <Filter>yeetnet</Filter>
+    </ClInclude>
+    <ClInclude Include="net_config.h">
+      <Filter>yeetnet\core</Filter>
+    </ClInclude>
+    <ClInclude Include="server_key_exchange.h">
+      <Filter>yeetnet\core\message\s2c</Filter>
+    </ClInclude>
+    <ClInclude Include="client_key_exchange.h">
+      <Filter>yeetnet\core\message\c2s</Filter>
+    </ClInclude>
+    <ClInclude Include="core_handler.h">
+      <Filter>yeetnet\core</Filter>
+    </ClInclude>
+    <ClInclude Include="yeetcrypt.h">
+      <Filter>yeetnet</Filter>
+    </ClInclude>
+    <ClInclude Include="encrypted_message.h">
+      <Filter>yeetnet\core\message\common</Filter>
+    </ClInclude>
+    <ClInclude Include="encrypt_type.h">
+      <Filter>yeetnet\core</Filter>
+    </ClInclude>
+    <ClInclude Include="rmi_message.h">
+      <Filter>yeetnet\core\message\common</Filter>
+    </ClInclude>
+    <ClInclude Include="client_data_request.h">
+      <Filter>yeetnet\core\message\c2s</Filter>
+    </ClInclude>
+    <ClInclude Include="server_connection_success.h">
+      <Filter>yeetnet\core\message\s2c</Filter>
+    </ClInclude>
+    <ClInclude Include="net_ping_sync.h">
+      <Filter>yeetnet</Filter>
+    </ClInclude>
+    <ClInclude Include="net_secure_user.h">
+      <Filter>yeetnet</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="net_client.cpp">
+      <Filter>yeet_base</Filter>
+    </ClCompile>
+    <ClCompile Include="net_message.cpp">
+      <Filter>yeet_core</Filter>
+    </ClCompile>
+    <ClCompile Include="net_server.cpp">
+      <Filter>yeet_base</Filter>
+    </ClCompile>
+    <ClCompile Include="net_packet.cpp">
+      <Filter>yeet_core</Filter>
+    </ClCompile>
+    <ClCompile Include="net_queue.cpp">
+      <Filter>yeet_core</Filter>
+    </ClCompile>
+    <ClCompile Include="net_session.cpp">
+      <Filter>yeetnet</Filter>
+    </ClCompile>
+    <ClCompile Include="net_config.cpp">
+      <Filter>yeetnet\core</Filter>
+    </ClCompile>
+    <ClCompile Include="server_key_exchange.cpp">
+      <Filter>yeetnet\core\message\s2c</Filter>
+    </ClCompile>
+    <ClCompile Include="yeetcrypt.cpp">
+      <Filter>yeetnet</Filter>
+    </ClCompile>
+    <ClCompile Include="client_key_exchange.cpp">
+      <Filter>yeetnet\core\message\c2s</Filter>
+    </ClCompile>
+    <ClCompile Include="core_handler.cpp">
+      <Filter>yeetnet\core</Filter>
+    </ClCompile>
+    <ClCompile Include="encrypted_message.cpp">
+      <Filter>yeetnet\core\message\common</Filter>
+    </ClCompile>
+    <ClCompile Include="rmi_message.cpp">
+      <Filter>yeetnet\core\message\common</Filter>
+    </ClCompile>
+    <ClCompile Include="client_data_request.cpp">
+      <Filter>yeetnet\core\message\c2s</Filter>
+    </ClCompile>
+    <ClCompile Include="server_connection_success.cpp">
+      <Filter>yeetnet\core\message\s2c</Filter>
+    </ClCompile>
+    <ClCompile Include="net_ping_sync.cpp">
+      <Filter>yeetnet</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
