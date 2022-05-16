@@ -193,26 +193,35 @@ void yeetnet::core::on_handle_core_common(net_session* m_session, core_opcode op
 void yeetnet::core::on_handle_encrypted(net_session* m_session, message::encrypted_message smessage)
 {
 	if (m_session->secure_user.is_key_exchanged && m_session->crypt) {
-		bool result = false;
-		auto decrypted = m_session->crypt->decrypt(smessage.encrypted_data, result);
-		if (result) {
-			std::int8_t padding = 0;
-			std::int32_t crc32 = 0;
-			std::int16_t encrypt_counter = 0;
 
-			if (decrypted.read(padding) && decrypted.read(crc32) && decrypted.read(encrypt_counter)) {
+		switch (smessage.type) 
+		{
+		case encrypt_type::aes:
+		{
+			bool result = false;
+			auto decrypted = m_session->crypt->decrypt(smessage.encrypted_data, result);
+			if (result) {
+				std::int8_t padding = 0;
+				std::int32_t crc32 = 0;
+				std::int16_t encrypt_counter = 0;
 
-				if (smessage.read(decrypted, true)) {
-					on_handle_core_common(m_session, smessage.opcode, smessage.message_data);
+				if (decrypted.read(padding) && decrypted.read(crc32) && decrypted.read(encrypt_counter)) {
 
-					
+					if (smessage.read(decrypted, true)) {
+						on_handle_core_common(m_session, smessage.opcode, smessage.message_data);
+					}
+					else spdlog::error("failed to read decrypted message");
 				}
-				else spdlog::error("failed to read decrypted message");
 			}
+			break;
 		}
-	//	else spdlog::error("failed to decrypt");
+		case encrypt_type::rsa:
+		case encrypt_type::_xor:
+			break; //ToDo
+
+		}
 	}
-	//else spdlog::error("(EncryptedHandler) crypt is null!");
+
 }
 
 void yeetnet::core::on_handle_rmi(net_session* m_session, message::rmi_message smessage)

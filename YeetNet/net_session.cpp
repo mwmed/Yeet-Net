@@ -20,13 +20,16 @@ void yeetnet::net_session::send_encrypted(net_message obj, core::encrypt_type ty
 			break;
 		}
 
-		case core::encrypt_type::rsa:
+		case core::encrypt_type::rsa: //Client Only
 		{
+
+			//ToDo
 			break;
 		}
 
 		case core::encrypt_type::_xor:
 		{
+			//ToDo
 			break;
 		}
 		}
