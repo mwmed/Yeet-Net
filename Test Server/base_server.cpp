@@ -29,7 +29,7 @@ void base_server::client_check_activity_handler()
 
 			if (m_session && m_session->client) {
 				auto client = m_session->client;
-				if (client->ping_sync.is_timedout()) {
+				if (m_session->secure_user.start_ping_thread && client->ping_sync.is_timedout()) {
 					spdlog::warn("Client timedout");
 					m_session->disconnect();
 				}

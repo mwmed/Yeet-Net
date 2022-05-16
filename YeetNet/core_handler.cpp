@@ -27,7 +27,6 @@ void yeetnet::core::on_handle_core_s2c(net_session* m_session, core_opcode opcod
 
 void yeetnet::core::on_handle_client_data_request(net_session* m_session, message::client_data_request smessage)
 {
-	spdlog::info("client data request");
 	if (!m_session->secure_user.is_authenticated) {
 
 		m_session->secure_user.is_authenticated = true;
@@ -41,16 +40,9 @@ void yeetnet::core::on_handle_client_data_request(net_session* m_session, messag
 			m_session->disconnect();
 		}
 		else {
-			spdlog::info("connection success");
 			m_session->send_encrypted(core_opcode::server_connection_success, message::server_connection_success(GetTickCount64(), m_session->id).write(), core::encrypt_type::aes);
 
 		}
-		
-
-
-
-
-
 	}
 }
 
@@ -79,11 +71,9 @@ void yeetnet::core::on_handle_serverkeyexchange(net_session* m_session, message:
 			m_session->crypt = crypt;
 		}
 		else {
-			spdlog::error("Failed to encrypt fast key");
 		}
 	}
 	else {
-		spdlog::error("session crypt is null!");
 	}
 }
 
@@ -124,7 +114,6 @@ void yeetnet::core::on_handle_clientkeyexchange(net_session* m_session, message:
 {
 	if (!m_session->secure_user.is_key_exchanged && m_session->crypt && message.aes_key.get_length() > 0 && message.rc4_key.get_length() > 0) {
 
-		spdlog::info("Received ClientKeyExchange!");
 		auto aesbuffer = message.aes_key.get_buffer();
 		auto rc4buffer = message.rc4_key.get_buffer();
 
@@ -214,20 +203,16 @@ void yeetnet::core::on_handle_encrypted(net_session* m_session, message::encrypt
 			if (decrypted.read(padding) && decrypted.read(crc32) && decrypted.read(encrypt_counter)) {
 
 				if (smessage.read(decrypted, true)) {
-					spdlog::info("Received Encrypted Core ID {}", (int)smessage.opcode);
 					on_handle_core_common(m_session, smessage.opcode, smessage.message_data);
 
 					
 				}
 				else spdlog::error("failed to read decrypted message");
-
-
-
 			}
 		}
-		else spdlog::error("failed to decrypt");
+	//	else spdlog::error("failed to decrypt");
 	}
-	else spdlog::error("(EncryptedHandler) crypt is null!");
+	//else spdlog::error("(EncryptedHandler) crypt is null!");
 }
 
 void yeetnet::core::on_handle_rmi(net_session* m_session, message::rmi_message smessage)

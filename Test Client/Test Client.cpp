@@ -1,6 +1,6 @@
 #include "base_client.h"
 
-std::string server_ip = "13.67.161.91";
+std::string server_ip = "127.0.0.1";
 std::uint16_t server_port = 28019;
 
 

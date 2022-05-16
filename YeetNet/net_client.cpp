@@ -28,12 +28,10 @@ void yeetnet::net_client::begin_listening()
 				
 				net_packet packet;
 				if (!packet.read_header(packet_data)) {
-					spdlog::info("Failed to read header | payload length {}", received_bytes);
 					continue;
 				}
 
 				if (packet.payload_length >= server_cfg.message_max_length) {
-					spdlog::info("Payload length is greater than max message length");
 					continue;
 				}
 
@@ -52,7 +50,6 @@ void yeetnet::net_client::begin_listening()
 					net_message buffer(packet_buffer, buffer_length);
 					if (!packet.read_packet(buffer)) {
 
-						spdlog::info("Failed to read packet! {} {}", buffer_length, packet_data.get_length());
 						//invalid packet
 						continue;
 					}

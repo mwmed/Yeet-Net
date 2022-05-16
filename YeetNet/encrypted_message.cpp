@@ -1,5 +1,5 @@
 #include "encrypted_message.h"
-#include <string_util.h>
+
 bool yeetnet::message::encrypted_message::read(net_message& obj, bool decrypted)
 {
     bool result = false;
@@ -12,7 +12,6 @@ bool yeetnet::message::encrypted_message::read(net_message& obj, bool decrypted)
         }
     }
     else {
-        spdlog::info("Decrypted Message {}", yeetutil::hex_str(obj.get_buffer(),obj.get_length()));
         if (obj.read<std::int8_t>((std::int8_t&)opcode)) {
             std::uint32_t message_length = 0;
             if (obj.read<std::uint32_t>(message_length)) {

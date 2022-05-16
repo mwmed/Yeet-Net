@@ -12,12 +12,10 @@ void yeetnet::net_session::send_encrypted(net_message obj, core::encrypt_type ty
 			bool result = false;
 			auto encryptedmessage = crypt->encrypt(obj, result);
 			if (result) {
-				spdlog::info("Sending Encrypted {}", yeetutil::hex_str(encryptedmessage.get_buffer(), encryptedmessage.get_length()));
 				client->send_core(core_opcode::encrypted, message::encrypted_message(type, encryptedmessage).write());
 
 			}
 			else {
-				spdlog::error("Failed to encrypt reliable");
 			}
 			break;
 		}
@@ -34,7 +32,7 @@ void yeetnet::net_session::send_encrypted(net_message obj, core::encrypt_type ty
 		}
 	}
 	else {
-		spdlog::info("Crypt is null");
+		// disconnect
 	}
 }
 
