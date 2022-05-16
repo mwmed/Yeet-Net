@@ -82,9 +82,10 @@ void yeetnet::core::on_handle_serverconnectionsuccess(net_session* m_session, me
 	m_session->client->ping_sync.first_client_time = smessage.server_time;
 	m_session->secure_user.start_ping_thread = true;
 
-	m_session->client->ping_sync.first_client_time = smessage.server_time;
+	//m_session->client->ping_sync.first_client_time = smessage.server_time;
 	m_session->client->ping_sync.on_update();
 
+	
 	m_session->client->ping_sync.mtx.unlock();
 
 
