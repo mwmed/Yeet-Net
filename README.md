@@ -16,8 +16,8 @@ in base_client, base_server
 ```
 virtual void on_rmi(yeetnet::net_session* m_session, yeetnet::message::rmi_message rmi) override {
 	switch((blablarmi)rmi.rmi_id){
-  case blablarmi::message_chat:
-      on_handle_messagechar(rmi.message_data);
-      break;
+        case blablarmi::message_chat:
+             on_handle_messagechar(rmi.message_data);
+             break;
   }
 }
