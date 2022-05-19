@@ -132,13 +132,14 @@ void yeetnet::net_client::send_core(core_opcode opcode, net_message message)
 
 void yeetnet::net_client::send_packet(net_packet obj)
 {
-	net_message packet_buffer;
+	//net_message packet_buffer;
 	obj.payload_length = obj.data.get_length() + 1 + 8;
 
-	packet_buffer.write_bytes(obj.write_header());
-	packet_buffer.write_bytes(obj.write_packet());
+	//packet_buffer.write_bytes(obj.write_header());
+	//packet_buffer.write_bytes(obj.write_packet());
 
-	send_data(packet_buffer);
+	send_data(obj.write_header());
+	send_data(obj.write_packet());
 
 }
 
