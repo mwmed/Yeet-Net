@@ -36,7 +36,7 @@ void yeetnet::core::on_handle_client_data_request(net_session* m_session, messag
 		m_session->client->ping_sync.on_update();
 
 		if (m_session->client->is_outdated_client(smessage.client_version)) {
-			spdlog::info("Outdated client client={}", smessage.client_version);
+			//spdlog::info("Outdated client client={}", smessage.client_version);
 			m_session->disconnect();
 		}
 		else {
@@ -50,7 +50,7 @@ void yeetnet::core::on_handle_serverkeyexchange(net_session* m_session, message:
 {
 
 	if (!m_session->crypt) {
-		spdlog::info("Received ServerKeyExchange! MaxPacketLength {} PingTime {}", smessage.config.message_max_length, smessage.config.client_ping_delay);
+	//	spdlog::info("Received ServerKeyExchange! MaxPacketLength {} PingTime {}", smessage.config.message_max_length, smessage.config.client_ping_delay);
 
 		m_session->client->ping_sync.interval = smessage.config.client_ping_delay;
 		auto buffer = (std::int8_t*)smessage.server_key.get_buffer();
@@ -140,7 +140,7 @@ void yeetnet::core::on_handle_clientkeyexchange(net_session* m_session, message:
 			m_session->client->send_core(core_opcode::server_protocol_error, net_message());
 			m_session->disconnect();
 
-			spdlog::info("KeyExchange failed!");
+		//	spdlog::info("KeyExchange failed!");
 		}
 
 
@@ -157,7 +157,7 @@ void yeetnet::core::on_handle_core_common(net_session* m_session, core_opcode op
 		if (encryptedmessage.read(smessage)) {
 			on_handle_encrypted(m_session, encryptedmessage);
 		}
-		else spdlog::error("failed to read encrypted message");
+	//	else spdlog::error("failed to read encrypted message");
 
 		break;
 	}
@@ -167,17 +167,20 @@ void yeetnet::core::on_handle_core_common(net_session* m_session, core_opcode op
 		if (rmimessage.read(smessage)) {
 			on_handle_rmi(m_session, rmimessage);
 		}
+		else {
+		//	spdlog::info("failed to read rmi message");
+		}
 		break;
 	}
 	case core_opcode::client_data_request:
 	{
 		message::client_data_request clientdatarequest;
-		spdlog::info("Message {}", yeetutil::hex_str(smessage.get_buffer(), smessage.get_length()));
+	//	spdlog::info("Message {}", yeetutil::hex_str(smessage.get_buffer(), smessage.get_length()));
 
 		if (clientdatarequest.read(smessage)) {
 			on_handle_client_data_request(m_session, clientdatarequest);
 		}
-		else spdlog::error("failed to read data request");
+		//else spdlog::error("failed to read data request");
 		break;
 	}
 	case core_opcode::server_connection_success:
@@ -195,10 +198,12 @@ void yeetnet::core::on_handle_encrypted(net_session* m_session, message::encrypt
 {
 	if (m_session->secure_user.is_key_exchanged && m_session->crypt) {
 
+		//spdlog::info("decrypting");
 		switch (smessage.type) 
 		{
 		case encrypt_type::aes:
 		{
+			
 			bool result = false;
 			auto decrypted = m_session->crypt->decrypt(smessage.encrypted_data, result);
 			if (result) {
@@ -209,11 +214,13 @@ void yeetnet::core::on_handle_encrypted(net_session* m_session, message::encrypt
 				if (decrypted.read(padding) && decrypted.read(crc32) && decrypted.read(encrypt_counter)) {
 
 					if (smessage.read(decrypted, true)) {
+					//	spdlog::info("opcode {}", (int)smessage.opcode);
 						on_handle_core_common(m_session, smessage.opcode, smessage.message_data);
 					}
-					else spdlog::error("failed to read decrypted message");
+				//	else spdlog::error("failed to read decrypted message");
 				}
 			}
+			//else spdlog::error("failed to decrypt message");
 			break;
 		}
 		case encrypt_type::rsa:
@@ -230,12 +237,12 @@ void yeetnet::core::on_handle_rmi(net_session* m_session, message::rmi_message s
 	if (!m_session->secure_user.is_authenticated)
 		return;
 
-	spdlog::info("Received RMI={}", smessage.rmi_id);
+	//spdlog::info("Received RMI={}", smessage.rmi_id);
 	switch ((core_rmi)smessage.rmi_id) {
 	case core_rmi::client_ping:
 	{
 		m_session->client->ping_sync.on_update();
-		spdlog::info("Client Ping={}", m_session->client->ping_sync.ping);
+	//	spdlog::info("Client Ping={}", m_session->client->ping_sync.ping);
 		break;
 	}
 	default:

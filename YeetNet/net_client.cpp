@@ -89,7 +89,6 @@ void yeetnet::net_client::disconnect(bool continue_thread)
 				client = 0;
 			}
 
-
 			mtx.unlock();
 
 			remote_server->on_disconnect(this);
