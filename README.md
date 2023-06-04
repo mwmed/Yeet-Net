@@ -1,4 +1,5 @@
-
+# USE P2Net instead
+This is an example of using the Winsock library, which is considered bad practice. It is recommended to use the improved version of this project, P2Net, available at https://github.com/mwmed/p2net.
 
 
 # Required Libraries
